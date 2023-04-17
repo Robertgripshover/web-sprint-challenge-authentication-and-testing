@@ -1,5 +1,10 @@
 const db = require('../../data/dbConfig')
 
+function getUsers() {
+    return db('users')
+} 
+
+
 function find() {
     return db('users').select('user_id', 'username', 'password') //<< remove password later
 }
@@ -7,29 +12,24 @@ function find() {
 
 function findBy(filter) {
     return db('users')
-    .select('user_id', 'username', 'password')
+    .select('id', 'username', 'password')
     .where(filter)
 }
 
 
-function findById(user_id) {
+function findById(id) {
     return db('users')
-    .select('user_id', 'username')
-    .where('user_id', user_id).first()
+    .select('id', 'username')
+    .where('id', id).first()
 }
 
 
 async function add({ username, password }) {
 
-    let created_user_id
-
-    await db.transaction(async trx => {
-        const [user_id] = await trx('users').insert({ username, password })
-        created_user_id = user_id
-    })
-
-  
-    return findById(created_user_id)
+   
+        const [id] = await db('users').insert({username, password})
+        return findById(id)
+    
 }
 
 
@@ -37,5 +37,6 @@ async function add({ username, password }) {
     find,
     findBy,
     findById,
-    add
+    add,
+    getUsers
 }

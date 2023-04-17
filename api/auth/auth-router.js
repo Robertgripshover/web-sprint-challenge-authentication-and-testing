@@ -10,7 +10,15 @@ const User = require('../users/users-model')
 
 
 
-
+//VV I added this one for experimentation
+router.get('/register', async (req, res, next) => {
+  try{ const users = await User.getUsers()
+  res.json(users)
+  } catch (err) {
+    next(err)
+  }
+}) //<< working!!!
+//^^ I added this one for experimentation
 
 
 
@@ -50,10 +58,11 @@ router.post('/register', validateUsernameAndPassword, checkUsernameTaken, (req, 
     4- On FAILED registration due to the `username` being taken,
       the response body should include a string exactly as follows: "username taken".
   */
+  
 
-});
+}); //<< working!!!
 
-router.post('/login', checkUsernameExists, (req, res, next) => {
+router.post('/login', checkUsernameExists, validateUsernameAndPassword, (req, res, next) => {
  
   if (bcrypt.compareSync(req.body.password, req.user.password)) { //<< checkking if the password entered is legit
     const token = buildToken(req.user) //if the password is legit then it will build a token
@@ -87,11 +96,13 @@ router.post('/login', checkUsernameExists, (req, res, next) => {
     4- On FAILED login due to `username` not existing in the db, or `password` being incorrect,
       the response body should include a string exactly as follows: "invalid credentials".
   */
-});
+
+      
+}); //<< working!!!
 
 function buildToken(user) {
   const payload = {
-    subject: user.user_id,
+    subject: user.id,
     username: user.username,
   }
   const options = {
