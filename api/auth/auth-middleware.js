@@ -16,8 +16,17 @@ const validateUsernameAndPassword = async (req, res, next) => {
 
 
 const checkUsernameTaken = async (req, res, next) => {
-    res.json({ message: 'check username taken is working' })
-    next()
+    try {
+        const [user] = await findBy({ user: req.body.username })
+        if (user) {
+          next({ message: "username taken" })
+        }
+        else { 
+          next()
+        }
+      } catch (err) {
+        next(err)
+      } 
 }
 
 

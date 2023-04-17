@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { checkUsernameExists, validateUsernameAndPassword } = require('./auth-middleware')
+const { checkUsernameExists, validateUsernameAndPassword, checkUsernameTaken } = require('./auth-middleware')
 
 const { JWT_SECRET } = require('../secrets/index'); // use this secret!
 const bcrypt = require('bcryptjs')
@@ -14,7 +14,7 @@ const User = require('../users/users-model')
 
 
 
-router.post('/register', (req, res, next) => {
+router.post('/register', validateUsernameAndPassword, checkUsernameTaken, (req, res, next) => {
   
   const { username, password } = req.body
   const hash = bcrypt.hashSync(password, 8)
@@ -53,7 +53,7 @@ router.post('/register', (req, res, next) => {
 
 });
 
-router.post('/login', (req, res, next) => {
+router.post('/login', checkUsernameExists, (req, res, next) => {
  
   if (bcrypt.compareSync(req.body.password, req.user.password)) { //<< checkking if the password entered is legit
     const token = buildToken(req.user) //if the password is legit then it will build a token
