@@ -8,13 +8,6 @@ const User = require('../users/users-model')
 
 
 
-
-
-
-
-
-
-
 router.post('/register', (req, res, next) => {
   
   const { username, password } = req.body

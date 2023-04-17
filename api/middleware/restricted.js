@@ -1,5 +1,23 @@
+
+const { JWT_SECRET } = require("../secrets"); // use this secret!
+
+const jwt = require('jsonwebtoken')
+
+
 module.exports = (req, res, next) => {
-  next();
+  
+  const token = req.headers.authorization //<< this is where you can find the token
+  if (!token) {
+    return next({ status: 401, message: 'token required' })
+  }
+  jwt.verify(token, JWT_SECRET, (err, decodedToken) => {
+    if (err) {
+      next({ status: 401, message: 'token invalid' }) //<< this path means the token is bad for some reason
+    } else {
+      req.decodedToken = decodedToken //<< tacking the decoded token onto the req object, this containts the decoded info about the user
+      next()
+    }
+  })
   /*
     IMPLEMENT
 
