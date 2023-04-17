@@ -6,12 +6,18 @@ const { findBy } = require('../users/users-model')
 
 
 const validateUsernameAndPassword = async (req, res, next) => {
-
+    if (!req.body.username || !req.body.username.trim() || !req.body.password || !req.body.password.trim()) {
+        next({ message: 'username and password required' }) 
+    } //checking to see if the username and password are in the request body
+    else {
+        next()
+    } //if the username and password are in the request body then I just call next()
 }
 
 
 const checkUsernameTaken = async (req, res, next) => {
-
+    res.json({ message: 'check username taken is working' })
+    next()
 }
 
 
@@ -38,5 +44,6 @@ const checkUsernameExists = async (req, res, next) => {
   module.exports = {
     checkUsernameExists,
     validateUsernameAndPassword,
+    checkUsernameTaken,
 
   }
