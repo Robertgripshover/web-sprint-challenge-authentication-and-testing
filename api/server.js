@@ -22,7 +22,6 @@ server.use('api/users', usersRouter)
 
 
 
-
 server.get("/", (req, res) => {
     res.json({ api: "up and running" });
   });
@@ -33,8 +32,6 @@ server.get("/", (req, res) => {
       stack: err.stack,
     });
   });
-
-
 
 
 
