@@ -64,7 +64,7 @@ router.post('/register', validateUsernameAndPassword, checkUsernameTaken, (req, 
 
 }); //<< working!!!
 
-router.post('/login', checkUsernameExists, validateUsernameAndPassword, (req, res, next) => {
+router.post('/login', validateUsernameAndPassword, checkUsernameExists, (req, res, next) => {
  
   if (bcrypt.compareSync(req.body.password, req.user.password)) { //<< checkking if the password entered is legit
     const token = buildToken(req.user) //if the password is legit then it will build a token
