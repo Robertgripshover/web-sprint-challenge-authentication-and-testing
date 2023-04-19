@@ -6,26 +6,20 @@ const Auth = require('./auth/auth-model')
 
 
 
+beforeAll(async () => {
+  await db.migrate.rollback()
+  await db.migrate.latest()
+})
 
-// beforeAll(async () => {
-//   await db.migrate.rollback()
-//   await db.migrate.latest()
-// })
+beforeEach(async () => {
+  await db.seed.run()
+})
 
-// beforeEach(async () => {
-//   await db.seed.run()
-// })
-
-
-
-// test('sanity', () => {
-//   expect(true).toBe(false)
-// })
 
 
 test('enviroment is testing', () => {
   expect(process.env.NODE_ENV).toBe('testing')
-}) //testing envirment is up and running
+}) //testing enviroment is up and running
 
 describe('getAll', () => {
   test('resolves all the users in the table', async () => {
