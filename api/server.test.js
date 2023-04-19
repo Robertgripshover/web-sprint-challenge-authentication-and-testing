@@ -2,9 +2,9 @@
 
 const db = require('../data/dbConfig')
 
-const Auth = require('./auth/auth-model')
+const request = require('supertest')
 
-
+const server = require('./server')
 
 
 
@@ -14,20 +14,48 @@ beforeAll(async () => {
   await db.migrate.latest()
 })
 
-
-
-
-
-
 // beforeEach(async () => {
 //   await db.seed.run()
 // })
 
-//I NEED TO GET MY SEED UP AND WORKING
+//^^^ need to find out why this is not working
+
+
+test('enviroment is testing', () => {
+  expect(process.env.NODE_ENV).toBe('testing')
+}) //testing enviroment is up and running
+
+
+describe('[POST] /register', () => {
+  const newUser = { username: 'robertgrips3', password: '1234' }
+
+  test('adds the new user to the database', async () => {
+    await (await request(server).post('/register')).send(newUser)
+    expect(await db('users')).toHaveLength(3) //because there were two and we are adding one
+  })
+  test('responds with the new user', async () => {
+
+  })
+})
 
 
 
-//Test scafolding
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Tests
 
 //test 1 for register endpoint
 //>>> test to see if giving a new correctly formatted username and password makes a new user
@@ -53,24 +81,3 @@ beforeAll(async () => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-test('enviroment is testing', () => {
-  expect(process.env.NODE_ENV).toBe('testing')
-}) //testing enviroment is up and running
-
-describe('getAll', () => {
-  test('resolves all the users in the table', async () => {
-    const result = await Auth.getUsers()
-    
-  })
-})
