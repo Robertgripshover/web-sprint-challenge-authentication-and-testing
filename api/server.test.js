@@ -4,7 +4,7 @@ const db = require('../data/dbConfig')
 
 const Auth = require('./auth/auth-model')
 
-// const User = require('./users/users-model')
+
 
 
 // beforeAll(async () => {
