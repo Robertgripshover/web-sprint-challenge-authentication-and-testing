@@ -6,13 +6,15 @@ const { JWT_SECRET } = require('../secrets/index'); // use this secret!
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
-const User = require('../users/users-model')
+// const User = require('../users/users-model')
+
+const Auth = require('./auth-model')
 
 
 
 //VV I added this one for experimentation
 router.get('/register', async (req, res, next) => {
-  try{ const users = await User.getUsers()
+  try{ const users = await Auth.getUsers()
   res.json(users)
   } catch (err) {
     next(err)
@@ -27,7 +29,7 @@ router.post('/register', validateUsernameAndPassword, checkUsernameTaken, (req, 
   const { username, password } = req.body
   const hash = bcrypt.hashSync(password, 8)
 
-  User.add({ username, password: hash })
+  Auth.add({ username, password: hash })
     .then(savedUser => {
       res.status(201).json(savedUser)
     })

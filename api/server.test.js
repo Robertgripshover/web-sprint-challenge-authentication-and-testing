@@ -2,19 +2,19 @@
 
 const db = require('../data/dbConfig')
 
-const Auth = require('./auth/')
+const Auth = require('./auth/auth-model')
 
-const User = require('./users/users-model')
+// const User = require('./users/users-model')
 
 
-beforeAll(async () => {
-  await db.migrate.rollback()
-  await db.migrate.latest()
-})
+// beforeAll(async () => {
+//   await db.migrate.rollback()
+//   await db.migrate.latest()
+// })
 
-beforeEach(async () => {
-  await db.seed.run()
-})
+// beforeEach(async () => {
+//   await db.seed.run()
+// })
 
 
 
@@ -29,7 +29,7 @@ test('enviroment is testing', () => {
 
 describe('getAll', () => {
   test('resolves all the users in the table', async () => {
-    const result = await User.getUsers()
+    const result = await Auth.getUsers()
     console.log(result)
   })
 })

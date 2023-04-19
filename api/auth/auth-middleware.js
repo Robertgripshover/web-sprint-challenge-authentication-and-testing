@@ -2,7 +2,7 @@ const { JWT_SECRET } = require("../secrets"); // use this secret!
 
 const jwt = require('jsonwebtoken')
 
-const { findBy } = require('../users/users-model')
+const { findBy } = require('./auth-model')
 
 
 const validateUsernameAndPassword = async (req, res, next) => {
