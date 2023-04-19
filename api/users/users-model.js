@@ -1,42 +1,42 @@
-const db = require('../../data/dbConfig')
+// const db = require('../../data/dbConfig')
 
-function getUsers() {
-    return db('users')
-} 
-
-
-function find() {
-    return db('users').select('user_id', 'username', 'password') //<< remove password later
-}
+// function getUsers() {
+//     return db('users')
+// } 
 
 
-function findBy(filter) {
-    return db('users')
-    .select('id', 'username', 'password')
-    .where(filter)
-}
+// function find() {
+//     return db('users').select('user_id', 'username', 'password') //<< remove password later
+// }
 
 
-function findById(id) {
-    return db('users')
-    .select('id', 'username')
-    .where('id', id).first()
-}
+// function findBy(filter) {
+//     return db('users')
+//     .select('id', 'username', 'password')
+//     .where(filter)
+// }
 
 
-async function add({ username, password }) {
+// function findById(id) {
+//     return db('users')
+//     .select('id', 'username')
+//     .where('id', id).first()
+// }
+
+
+// async function add({ username, password }) {
 
    
-        const [id] = await db('users').insert({username, password})
-        return findById(id)
+//         const [id] = await db('users').insert({username, password})
+//         return findById(id)
     
-}
+// }
 
 
-  module.exports = {
-    find,
-    findBy,
-    findById,
-    add,
-    getUsers
-}
+//   module.exports = {
+//     find,
+//     findBy,
+//     findById,
+//     add,
+//     getUsers
+// }
