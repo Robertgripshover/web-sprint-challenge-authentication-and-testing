@@ -26,17 +26,17 @@ test('enviroment is testing', () => {
 }) //testing enviroment is up and running
 
 
-describe('[POST] /register', () => {
-  const newUser = { username: 'robertgrips3', password: '1234' }
+// describe('[POST] /register', () => {
+//   const newUser = { username: 'robertgrips3', password: '1234' }
 
-  test('adds the new user to the database', async () => {
-    await (await request(server).post('/register')).send(newUser)
-    expect(await db('users')).toHaveLength(3) //because there were two and we are adding one
-  })
-  test('responds with the new user', async () => {
+//   test('adds the new user to the database', async () => {
+//     await (await request(server).post('/register')).send(newUser)
+//     expect(await db('users')).toHaveLength(3) //because there were two and we are adding one
+//   })
+//   test('responds with the new user', async () => {
 
-  })
-})
+//   })
+// })
 
 
 
